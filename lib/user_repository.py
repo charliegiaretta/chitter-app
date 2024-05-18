@@ -17,7 +17,6 @@ class UserRepository:
             [user.username, user.email, user.password]
         )
         return None
-        # user.id = rows[0]["id"]
 
     def find(self, id):
         rows = self._connection.execute("SELECT * FROM users WHERE id = %s", [id])

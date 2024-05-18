@@ -23,14 +23,13 @@ CREATE SEQUENCE IF NOT EXISTS posts_id_seq;
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     content text NOT NULL,
-    post_time timestamp default CURRENT_TIMESTAMP,
+    post_time timestamp DEFAULT CURRENT_TIMESTAMP,
     user_id int,
     constraint fk_user foreign key(user_id)
     references users(id)
     on delete cascade
 );
-
 -- Finally, we add any records that are needed for the tests to run
 INSERT INTO users (username, email, password) VALUES ('charliegiaretta', 'charliegiaretta@outlook.com', 'password123');
 
-INSERT INTO posts (content, post_time, user_id) VALUES ('Hello World', NULL, 1)
+INSERT INTO posts (content, user_id) VALUES ('Hello World', 1)

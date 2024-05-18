@@ -1,7 +1,10 @@
 import pytest, sys, random, py, pytest, os
+import datetime
 from xprocess import ProcessStarter
 from lib.database_connection import DatabaseConnection
 import app
+import pytz
+
 
 # This is a Pytest fixture.
 # It creates an object that we can use in our tests.
@@ -48,3 +51,12 @@ def web_client():
     app.config['TESTING'] = True # This gets us better errors
     with app.test_client() as client:
         yield client
+
+@pytest.fixture
+def current_timestamp():
+    london = pytz.timezone('Europe/London')
+    return datetime.datetime.now(london)
+
+def fixed_timestamp():
+    # Define a fixed timestamp
+    return datetime.datetime(2024, 5, 18, 12, 0, 0, tzinfo=datetime.timezone.utc)
