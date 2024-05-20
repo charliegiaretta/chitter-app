@@ -5,16 +5,16 @@ class PostRepository:
         self._connection = connection
 
     def all(self):
-        rows = self._connection.execute("SELECT * FROM posts")
+        rows = self._connection.execute("SELECT p.id, p.content, p.post_time, u.username FROM posts p JOIN users u ON p.user_id = u.id")
         return [
-            Post(row['id'], row['content'], row['post_time'], row['user_id'])
+            Post(row['id'], row['content'], row['post_time'], row['username'])
             for row in rows
         ]
     
     def create(self, user):
         rows = self._connection.execute(
-            "INSERT INTO posts (content, post_time, user_id) VALUES (%s, %s, %s)",
-            [user.content, user.post_time, user.user_id]
+            "INSERT INTO posts (content, user_id) VALUES (%s, %s) RETURNING id, post_time;",
+            [user.content, user.username]
         )
         return None
     
@@ -22,4 +22,4 @@ class PostRepository:
         rows = self._connection.execute("SELECT * FROM posts WHERE id = %s", [id])
         row = rows[0]
         return Post(
-            row['id'], row['content'], row['post_time'], row['user_id'])
+            row['id'], row['content'], row['post_time'], row['username'])
