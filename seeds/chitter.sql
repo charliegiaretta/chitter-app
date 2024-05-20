@@ -31,5 +31,3 @@ CREATE TABLE posts (
 );
 -- Finally, we add any records that are needed for the tests to run
 INSERT INTO users (username, email, password) VALUES ('charliegiaretta', 'charliegiaretta@outlook.com', 'password123');
-
-INSERT INTO posts (content, user_id) VALUES ('Hello World', 1)

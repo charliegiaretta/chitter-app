@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chitter</title>
+  </head>
+  <body>
+    <h1>Welcome to Chitter</h1>
+    {% if 'username' in session %}
+        <a href="/logout">Logout</a>
+        <p class="t-login-message">Logged in as: <strong>{{ session['username'] }}</strong></p>
+        <form action="/" method="POST">
+            <p>
+                <label for="content">What's on your mind?</label>
+                <br>
+                <textarea name="content" id="content" rows="4" cols="50" required></textarea>
+            </p>
+            <p>
+                <input type="submit" value="Post a peep">
+            </p>
+        </form>
+        <br>
+    {% else %}
+        <form action="/login" method="GET">
+        <input type="submit" value="Log in">
+        </form>
+        <br>
+        <form action="/register" method="GET">
+        <input type="submit" value="Sign up">
+        </form>
+    {% endif %}
+    <br>
+    <hr>
+    <h1>Peeps</h1>
+    {% for post in posts %}
+      <article>
+        <p class="t-username"><strong>{{ post.username }}</strong></p>
+        <p class="t-content">{{ post.content }}</p>
+        <p class="t-post_time"><i>{{ post.post_time.strftime('%Y-%m-%d %H:%M:%S') }}</i></p>
+      </article>
+    {% endfor %}
+    <!-- ... -->
+  </body>
+</html>
